@@ -1,5 +1,4 @@
-#define LED_PIN 2   
-#include "library.hpp"
+#include <TCS34725.h>
 
 TCS34725 Color;
 
@@ -7,21 +6,33 @@ TCS34725 Color;
 void setup(){
     Serial.begin(115200);
 
-    pinMode(LED_PIN, OUTPUT);
-    digitalWrite(LED_PIN, HIGH);
-
-    pinMode(3, INPUT_PULLUP);
-
-    attachInterrupt(digitalPinToInterrupt(3), interrupt, FALLING);
-
-
+    //initialize sensor
     Color.begin();
+    
+    //set gain 
+    //GAIN_1X
+    //GAIN_4X
+    //GAIN_16X
+    //GAIN_60X
+    //
     Color.set_gain(GAIN_60X);
-    Color.set_integration_time(1000);
+    
+    //set integration time in milliseconds [0ms : 700ms]
+    Color.set_integration_time(100);
 
+    //enable the RAW data conversion to RGB and HSV
     Color.colour_convertion(true);
+
+    //config threshold for the interruption
     Color.set_interrupt_threshold(0, 1000);
+    
+    //config persistence filter for the interrupt [0 : 15]
+    //0 -> every cycle generates an interrupt
+    //1 - 3 -> number of persistence needed [1 : 3]
+    //4 - 15 -> going 5 by 5 from 5 to 60 [5 : 60]
     Color.set_persistence_filter(1);
+    
+    //set to true to turn on the interruption
     Color.turn_interrupt_on(false);
 
 
@@ -30,8 +41,10 @@ void setup(){
 
 void loop(){
     static int count = 0;
+    //read sensor
     Color.read();
-
+    
+    //show all data
     Serial.print("RAW C: ");
     Serial.print(Color.RAW.C);
     Serial.print(" - int: ");
@@ -58,14 +71,12 @@ void loop(){
     if(!digitalRead(3))count++;
     if(count > 5){
         count = 0;
+        //clear the interruption after it triggers
         Color.clear_interrupt();
         Serial.println("clear");
-        digitalWrite(LED_PIN, HIGH);
     }
 
     delay(500);
 }
 
-void interrupt(){
-    digitalWrite(LED_PIN, LOW);
-}
+
