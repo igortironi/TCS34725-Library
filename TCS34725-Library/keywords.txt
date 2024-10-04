@@ -1,0 +1,20 @@
+TCS34725 KEYWORD1
+
+GAIN_1X KEYWORD2
+GAIN_4X KEYWORD2
+GAIN_16X    KEYWORD2 
+GAIN_60X    KEYWORD2
+RAW KEYWORD2
+RGB KEYWORD2
+HSV KEYWORD2
+begin   KEYWORD2
+set_integration_time    KEYWORD2
+set_gain    KEYWORD2
+read    KEYWORD2
+colour_convertion   KEYWORD2
+set_interrupt_threshold KEYWORD2
+turn_interrupt_on   KEYWORD2
+clear_interrupt KEYWORD2
+set_persistence_filter  KEYWORD2
+
+
