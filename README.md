@@ -168,5 +168,5 @@ Sets the persistence filter value, determining how often the sensor generates an
 
 ## License
 This library is licensed under the MIT License.
-```
+
 
