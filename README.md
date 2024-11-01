@@ -165,6 +165,7 @@ Clears the sensor's interrupt state after it has been triggered.
 Sets the persistence filter value, determining how often the sensor generates an interrupt.
 
 ---
+> This README was initially generated with the assistance of ChatGPT by OpenAI.
 
 ## License
 This library is licensed under the MIT License.
